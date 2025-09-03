@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Save Data to Google Sheets</title>
+</head>
+<body>
+  <h1>Google Sheets Save Demo</h1>
+
+  <label>Name:</label>
+  <input type="text" id="name" placeholder="Enter name"><br><br>
+
+  <label>Score:</label>
+  <input type="number" id="score" placeholder="Enter score"><br><br>
+
+  <button id="saveBtn">Save Data</button>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzbknOOKgzaXH96ScztP4TIoxRdumTiHACizlOVp4vxmKo65me3rNkAfMMZzyct7rDB/exec"; // Replace with your Apps Script URL
+
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      const name = document.getElementById("name").value;
+      const score = document.getElementById("score").value;
+
+      const payload = { name, score };
+
+     fetch(scriptURL, {
+  method: "POST",
+  mode: "no-cors",   // 👈 add this
+  body: JSON.stringify(payload),
+})
+.then(() => alert("Saved (but response hidden due to no-cors)"))
+.catch(err => console.error("Error:", err));
+    });
+  </script>
+</body>
+</html>
